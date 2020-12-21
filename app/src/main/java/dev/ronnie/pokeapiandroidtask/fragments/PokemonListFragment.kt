@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,13 +20,13 @@ import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.adapters.LoadingStateAdapter
 import dev.ronnie.pokeapiandroidtask.adapters.PokemonAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonListBinding
+import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
 import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.toast
 import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonListViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
 
 /**
  *created by Ronnie Otieno on 20-Dec-20.
@@ -37,7 +38,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: PokemonListViewModel by viewModels()
     private var job: Job? = null
-    private val adapter = PokemonAdapter()
+    private val adapter = PokemonAdapter { pokemonResult: PokemonResult -> navigate(pokemonResult) }
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -54,7 +55,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            startFetchingPokemon(null)
+            startFetchingPokemon(null, false)
 
             binding.searchView.apply {
                 text = null
@@ -62,7 +63,6 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
             }
             hideSoftKeyboard()
-            binding.swipeRefreshLayout.isRefreshing = false
 
         }
 
@@ -78,11 +78,11 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
     }
 
-    private fun startFetchingPokemon(searchString: String?) {
+    private fun startFetchingPokemon(searchString: String?, shouldSubmitEmpty: Boolean) {
         job?.cancel()
         job = lifecycleScope.launch {
-            adapter.submitData(PagingData.empty())
-            viewModel.getAdverts(searchString).collect {
+            if (shouldSubmitEmpty) adapter.submitData(PagingData.empty())
+            viewModel.getAdverts(searchString).collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -96,7 +96,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
             requireContext().toast("Search cannot be empty")
             return
         }
-        startFetchingPokemon(searchString)
+        startFetchingPokemon(searchString, true)
 
 
     }
@@ -129,16 +129,18 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
             footer = LoadingStateAdapter { retry() }
         )
 
-        startFetchingPokemon(null)
+        startFetchingPokemon(null, false)
 
         adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading
+            if (loadState.refresh is LoadState.Loading && adapter.snapshot().isEmpty()
             ) {
                 binding.progressCircular.isVisible = true
                 binding.textError.isVisible = false
 
+
             } else {
                 binding.progressCircular.isVisible = false
+                binding.swipeRefreshLayout.isRefreshing = false
 
                 val error = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -169,6 +171,11 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
     private fun retry() {
         adapter.retry()
+    }
+
+    private fun navigate(pokemonResult: PokemonResult) {
+        binding.root.findNavController()
+            .navigate(PokemonListFragmentDirections.toPokemonStatsFragment(pokemonResult))
     }
 
 }

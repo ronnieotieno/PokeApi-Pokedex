@@ -3,4 +3,5 @@
     <string name="search_pokemons">Search Pokemons</string>
     <string name="retry">Retry</string>
     <string name="tap_to_retry">There was an error\ntap to retry</string>
+    <string name="statistics">Statistics</string>
 </resources>

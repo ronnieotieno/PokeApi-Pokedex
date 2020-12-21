@@ -7,5 +7,24 @@
     <fragment
         android:id="@+id/pokemonListFragment"
         android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonListFragment"
-        android:label="PokemonListFragment" />
+        android:label="PokemonListFragment">
+        <action
+            android:id="@+id/to_pokemonStatsFragment"
+            app:destination="@id/pokemonStatsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonStatsFragment"
+        android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonStatsFragment"
+        android:label="PokemonStatsFragment">
+
+        <argument
+            android:name="pokemon_result"
+            app:argType="dev.ronnie.pokeapiandroidtask.domain.PokemonResult"
+            app:nullable="false" />
+    </fragment>
 </navigation>
