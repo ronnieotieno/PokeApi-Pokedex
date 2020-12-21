@@ -12,6 +12,9 @@ import dev.ronnie.pokeapiandroidtask.databinding.NetworkStateItemBinding
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
+/**
+ * Loading state AAdapter used with paging 3 to show the state of data being loaded, it shows at the footer of the adapter
+ */
 class LoadingStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadingStateAdapter.LoadStateViewHolder>() {
 
@@ -25,7 +28,7 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
             progress.isVisible = true
             txtErrorMessage.isVisible = false
             errorBtn.isVisible = false
-        }else{
+        } else {
             progress.isVisible = false
         }
         if (loadState is LoadState.Error) {

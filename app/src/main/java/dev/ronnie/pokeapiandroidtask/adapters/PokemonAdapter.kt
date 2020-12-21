@@ -22,11 +22,10 @@ import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
-class PokemonAdapter() :
+class PokemonAdapter :
     PagingDataAdapter<PokemonResult, PokemonAdapter.ViewHolder>(
         PlayersDiffCallback()
     ) {
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = getItem(position)!!

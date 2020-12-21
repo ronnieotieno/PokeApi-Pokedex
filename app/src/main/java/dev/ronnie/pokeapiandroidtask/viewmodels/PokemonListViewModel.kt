@@ -23,6 +23,4 @@ class PokemonListViewModel @ViewModelInject constructor(private val pokemonRepos
         currentResult = newResult
         return newResult
     }
-
-    suspend fun getStats(id:Int) = pokemonRepository.getStats(id)
 }

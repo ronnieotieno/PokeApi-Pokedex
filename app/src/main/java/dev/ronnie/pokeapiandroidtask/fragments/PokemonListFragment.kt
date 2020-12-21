@@ -1,5 +1,6 @@
 package dev.ronnie.pokeapiandroidtask.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -39,6 +40,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private val adapter = PokemonAdapter()
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,7 +48,26 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
         setAdapter()
 
+        binding.searchView.setOnTouchListener { v, _ ->
+            v.isFocusableInTouchMode = true
+            false
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            startFetchingPokemon(null)
+
+            binding.searchView.apply {
+                text = null
+                isFocusable = false
+
+            }
+            hideSoftKeyboard()
+            binding.swipeRefreshLayout.isRefreshing = false
+
+        }
+
         binding.searchView.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch(binding.searchView.text.toString().trim())
                 return@OnEditorActionListener true
@@ -56,6 +77,17 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
 
     }
+
+    private fun startFetchingPokemon(searchString: String?) {
+        job?.cancel()
+        job = lifecycleScope.launch {
+            adapter.submitData(PagingData.empty())
+            viewModel.getAdverts(searchString).collect {
+                adapter.submitData(it)
+            }
+        }
+    }
+
 
     private fun performSearch(searchString: String) {
         hideSoftKeyboard()
@@ -130,19 +162,9 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        hideSoftKeyboard()
-    }
-
-    private fun startFetchingPokemon(searchString: String?) {
-        job?.cancel()
-        job = lifecycleScope.launch {
-            adapter.submitData(PagingData.empty())
-            viewModel.getAdverts(searchString).collect {
-                adapter.submitData(it)
-            }
-        }
+    override fun onPause() {
+        super.onPause()
+        binding.searchView.isFocusable = false
     }
 
     private fun retry() {
