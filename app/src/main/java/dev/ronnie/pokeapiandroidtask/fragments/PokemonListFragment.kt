@@ -40,7 +40,6 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private var job: Job? = null
     private val adapter = PokemonAdapter { pokemonResult: PokemonResult -> navigate(pokemonResult) }
 
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +54,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            startFetchingPokemon(null, false)
+            startFetchingPokemon(null, true)
 
             binding.searchView.apply {
                 text = null
@@ -160,7 +159,6 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
                 }
             }
         }
-
 
     }
 

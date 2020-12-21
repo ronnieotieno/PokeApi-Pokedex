@@ -18,7 +18,6 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 /**
  *created by Ronnie Otieno on 20-Dec-20.
  **/
@@ -41,7 +40,7 @@ object AppModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addNetworkInterceptor(provideCacheInterceptor())
+            .addInterceptor(provideCacheInterceptor())
             .cache(cache)
 
         if (BuildConfig.DEBUG) okHttpClient.addInterceptor(loggingInterceptor)
@@ -61,7 +60,10 @@ object AppModule {
     @Singleton
     fun provideCache(@ApplicationContext appContext: Context): Cache {
 
-        return Cache(File(appContext.applicationContext.cacheDir, "http-cache"), 10 * 1024 * 1024)
+        return Cache(
+            File(appContext.applicationContext.cacheDir, "pokemon_cache"),
+            10 * 1024 * 1024
+        )
     }
 
     private fun provideCacheInterceptor(): Interceptor {

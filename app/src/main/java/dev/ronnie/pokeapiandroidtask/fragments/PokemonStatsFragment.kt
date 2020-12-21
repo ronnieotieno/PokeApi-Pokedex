@@ -23,7 +23,6 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
     private val adapter = StatsAdapter()
     private val args = PokemonStatsFragmentArgs
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,10 +42,10 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
         }
 
         binding.apply {
-            (pokemonResult.singlePokemonResponse?.weight.toString() + " metres").also {
+            (pokemonResult.singlePokemonResponse?.weight?.div(10.0).toString() + " metres").also {
                 pokemonItemWeight.text = it
             }
-            (pokemonResult.singlePokemonResponse?.height.toString() + " Kgs").also {
+            (pokemonResult.singlePokemonResponse?.height?.div(10.0).toString() + " Kgs").also {
                 pokemonItemHeight.text = it
             }
 

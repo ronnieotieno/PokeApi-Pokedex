@@ -7,17 +7,14 @@ import dev.ronnie.pokeapiandroidtask.databinding.StatItemPokemonBinding
 import dev.ronnie.pokeapiandroidtask.domain.Stats
 import dev.ronnie.pokeapiandroidtask.utils.MAX_BASE_STATE
 
-
 class StatsAdapter :
     RecyclerView.Adapter<StatsAdapter.CartViewHolder>() {
-
     private val stats = ArrayList<Stats>()
 
     fun setStats(newList: ArrayList<Stats>) {
         stats.clear()
         stats.addAll(newList)
         notifyDataSetChanged()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -47,7 +44,6 @@ class StatsAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(stat: Stats) {
-
             binding.apply {
                 val mProgress = progressCircular
                 mProgress.progress = stat.base_stat
@@ -57,9 +53,7 @@ class StatsAdapter :
                 statName.text = stat.stat.name
                 statCount.text = stat.base_stat.toString()
 
-
             }
-
         }
     }
 }

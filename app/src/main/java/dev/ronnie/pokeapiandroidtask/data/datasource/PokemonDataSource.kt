@@ -14,6 +14,7 @@ import java.io.IOException
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
+
 /**
  * Paging 3 library which is under Android Jetpack. Used to paginate data. Here I am paginating the data using the pokeapi pagination
  */
@@ -35,14 +36,14 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
         return try {
             val data = pokemonApi.getPokemons(loadSize, offset)
 
-            //if search string isn't null I will filter the pokemon based on what user searched.
+            //if search string isn't null filter the pokemon based on what user searched.
             val filteredData = if (searchString != null) {
                 data.results.filter { it.name.contains(searchString, true) }
             } else {
                 data.results
             }
 
-            /* After getting the pokemon after calling endpoint pokemon, I am extracting the pokemon id and search individual pokemon data
+            /* After getting the pokemon after calling endpoint pokemon, extract the pokemon id and search individual pokemon data
         using  pokemon/{id}/ endpoint then adding the results to the pokemon result data class
         */
             filteredData.forEach {
