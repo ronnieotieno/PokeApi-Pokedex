@@ -1,6 +1,5 @@
 package dev.ronnie.pokeapiandroidtask.data.datasource
 
-import android.util.Log
 import androidx.paging.PagingSource
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
@@ -42,7 +41,6 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
             } else {
                 data.results
             }
-
             /* After getting the pokemon after calling endpoint pokemon, extract the pokemon id and search individual pokemon data
         using  pokemon/{id}/ endpoint then adding the results to the pokemon result data class
         */
@@ -53,7 +51,7 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
                 it.singlePokemonResponse = singlePokemonResponse
             }
 
-            data.next?.let { Log.d("NextOffset", it) }
+            //next offset = last offset + loadsize, returning null is telling the paging 3 that there is no more to load and should stop
             LoadResult.Page(
                 data = filteredData,
                 prevKey = if (offset == STARTING_OFFSET_INDEX) null else offset - loadSize,
