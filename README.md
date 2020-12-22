@@ -26,5 +26,5 @@ navigation between fragments
 |<img src="screenshots/home.jpg" width=200/>|<img src="screenshots/stats.jpg" width=200/>|
 |:----:|:----:|
 
-##Demo
+## Demo
 <img src="demo/gif.gif" width=400/>
