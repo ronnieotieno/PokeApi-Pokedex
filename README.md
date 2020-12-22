@@ -23,4 +23,4 @@ navigation between fragments
 
 ## Screenshots
 |<img src="screenshots/home.jpg" width=200/>|<img src="screenshots/stats.jpg" width=200/>|
-|:----:|:----:|:----:|:----:|
+|:----:|:----:|
