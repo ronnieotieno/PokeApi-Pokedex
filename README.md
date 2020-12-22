@@ -20,7 +20,11 @@ navigation between fragments
 * [Dagger Hilt](https://developer.android.com/jetpack/androidx/releases/hilt) - For Dependency Injection.
 * [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview?hl=in) - Allow pagination of the Data.
 * [Retrofit](https://square.github.io/retrofit/) - To access the Rest Api
+* [Kotlin Flow](https://developer.android.com/kotlin/flow) - To access data sequentially
 
 ## Screenshots
 |<img src="screenshots/home.jpg" width=200/>|<img src="screenshots/stats.jpg" width=200/>|
 |:----:|:----:|
+
+##Demo
+<img src="demo/gif.gif" width=200/>
