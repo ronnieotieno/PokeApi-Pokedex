@@ -11,7 +11,6 @@ import retrofit2.http.Query
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
-
 interface PokemonApi {
     @GET("pokemon/")
     suspend fun getPokemons(
