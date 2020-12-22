@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.ronnie.pokeapiandroidtask">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".PokemonApp"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo_square"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".MainActivity">
             <intent-filter>
