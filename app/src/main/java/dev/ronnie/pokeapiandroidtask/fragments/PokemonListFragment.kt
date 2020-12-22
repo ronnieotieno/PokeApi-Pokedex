@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,7 +39,14 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: PokemonListViewModel by viewModels()
     private var job: Job? = null
-    private val adapter = PokemonAdapter { pokemonResult: PokemonResult -> navigate(pokemonResult) }
+
+    //adapter with higher order function passed which is called on onclick on adapter
+    private val adapter = PokemonAdapter { pokemonResult: PokemonResult, dominantColor: Int ->
+        navigate(
+            pokemonResult,
+            dominantColor
+        )
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,6 +86,8 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     }
 
     private fun startFetchingPokemon(searchString: String?, shouldSubmitEmpty: Boolean) {
+
+        //collecting flow then setting to adapter
         job?.cancel()
         job = lifecycleScope.launch {
             if (shouldSubmitEmpty) adapter.submitData(PagingData.empty())
@@ -130,6 +140,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
         startFetchingPokemon(null, false)
 
+        //the progress will only show when the adapter is refreshing and its empty
         adapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading && adapter.snapshot().isEmpty()
             ) {
@@ -140,6 +151,8 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
             } else {
                 binding.progressCircular.isVisible = false
                 binding.swipeRefreshLayout.isRefreshing = false
+
+                //if there is error a textview will show the error encountered.
 
                 val error = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -167,13 +180,26 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         binding.searchView.isFocusable = false
     }
 
+    override fun onResume() {
+        super.onResume()
+//setting the status bar color back
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.green)
+    }
+
     private fun retry() {
         adapter.retry()
     }
 
-    private fun navigate(pokemonResult: PokemonResult) {
+    //navigating to stats fragment passing the pokemon and the dominant color
+    private fun navigate(pokemonResult: PokemonResult, dominantColor: Int) {
         binding.root.findNavController()
-            .navigate(PokemonListFragmentDirections.toPokemonStatsFragment(pokemonResult))
+            .navigate(
+                PokemonListFragmentDirections.toPokemonStatsFragment(
+                    pokemonResult,
+                    dominantColor
+                )
+            )
     }
 
 }

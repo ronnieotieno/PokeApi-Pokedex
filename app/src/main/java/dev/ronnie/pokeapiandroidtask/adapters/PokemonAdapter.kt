@@ -1,10 +1,13 @@
 package dev.ronnie.pokeapiandroidtask.adapters
 
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,16 +16,20 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.databinding.ListItemPokemonBinding
 import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
 import dev.ronnie.pokeapiandroidtask.utils.NETWORK_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 
+
 /**
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
-class PokemonAdapter(private val navigate: (PokemonResult) -> Unit) :
+//Paging Adapter belonging to paging 3 in Android jetpack, used to paginate data.
+
+class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
     PagingDataAdapter<PokemonResult, PokemonAdapter.ViewHolder>(
         PlayersDiffCallback()
     ) {
@@ -47,20 +54,27 @@ class PokemonAdapter(private val navigate: (PokemonResult) -> Unit) :
         private val binding: ListItemPokemonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pokemonResult: PokemonResult, navigate: (PokemonResult) -> Unit) {
+        var dominantColor: Int = 0
+
+        fun bind(pokemonResult: PokemonResult, navigate: (PokemonResult, Int) -> Unit) {
 
             binding.apply {
                 pokemonItemTitle.text = pokemonResult.name
                 loadImage(this, pokemonResult)
 
                 root.setOnClickListener {
-                    navigate.invoke(pokemonResult)
+                    navigate.invoke(pokemonResult, dominantColor)
                 }
             }
 
         }
 
         private fun loadImage(binding: ListItemPokemonBinding, pokemonResult: PokemonResult) {
+
+            /*Loading the image and hiding the progress bar after its done, also using palette library to extract dominant color
+            and setting imageview background
+
+             */
 
             binding.apply {
                 Glide.with(root)
@@ -85,6 +99,22 @@ class PokemonAdapter(private val navigate: (PokemonResult) -> Unit) :
                             isFirstResource: Boolean
                         ): Boolean {
 
+                            val drawable = resource as BitmapDrawable
+                            val bitmap = drawable.bitmap
+                            Palette.Builder(bitmap).generate {
+                                it?.let { palette ->
+                                    dominantColor = palette.getDominantColor(
+                                        ContextCompat.getColor(
+                                            root.context,
+                                            R.color.white
+                                        )
+                                    )
+
+                                    pokemonItemImage.setBackgroundColor(dominantColor)
+
+
+                                }
+                            }
                             progressCircular.isVisible = false
                             return false
                         }
@@ -105,6 +135,8 @@ class PokemonAdapter(private val navigate: (PokemonResult) -> Unit) :
             return oldItem == newItem
         }
     }
+
+    //checking if the pokemon are being displayed or the loading more progressbar inorder to set spans accordingly.
 
     override fun getItemViewType(position: Int): Int {
         return if (position == itemCount) {

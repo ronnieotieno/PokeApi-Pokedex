@@ -7,6 +7,15 @@ import dev.ronnie.pokeapiandroidtask.databinding.StatItemPokemonBinding
 import dev.ronnie.pokeapiandroidtask.domain.Stats
 import dev.ronnie.pokeapiandroidtask.utils.MAX_BASE_STATE
 
+
+/**
+ *created by Ronnie Otieno on 20-Dec-20.
+ **/
+
+/**
+ * Normal adapter to show the base stats
+ */
+
 class StatsAdapter :
     RecyclerView.Adapter<StatsAdapter.CartViewHolder>() {
     private val stats = ArrayList<Stats>()
@@ -42,6 +51,8 @@ class StatsAdapter :
 
     class CartViewHolder(private val binding: StatItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        //Max base state is 255, using this set the progressbar progress based on pokemon stat.
 
         fun bind(stat: Stats) {
             binding.apply {

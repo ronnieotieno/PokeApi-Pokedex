@@ -8,4 +8,4 @@ import dagger.hilt.android.HiltAndroidApp
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 @HiltAndroidApp
-class PokemonApp: Application()
+class PokemonApp : Application()

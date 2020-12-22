@@ -27,8 +27,16 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPokemonStatsBinding.bind(view)
+        val argument = arguments?.let { args.fromBundle(it) }
+        val pokemonResult = argument?.pokemonResult!!
+        val dominantColor = argument.dominantColor
 
-        val pokemonResult = arguments?.let { args.fromBundle(it).pokemonResult }!!
+        //setting the colors based on dominant colors
+        if (dominantColor != 0) {
+            binding.card.setBackgroundColor(dominantColor)
+            binding.toolbar.setBackgroundColor(dominantColor)
+            requireActivity().window.statusBarColor = dominantColor
+        }
 
         val toolbar = binding.toolbar as Toolbar
         toolbar.elevation = 0.0F
@@ -45,7 +53,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
             (pokemonResult.singlePokemonResponse?.weight?.div(10.0).toString() + " metres").also {
                 pokemonItemWeight.text = it
             }
-            (pokemonResult.singlePokemonResponse?.height?.div(10.0).toString() + " Kgs").also {
+            (pokemonResult.singlePokemonResponse?.height?.div(10.0).toString() + " kgs").also {
                 pokemonItemHeight.text = it
             }
 

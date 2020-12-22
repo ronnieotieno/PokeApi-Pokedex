@@ -26,5 +26,10 @@
             android:name="pokemon_result"
             app:argType="dev.ronnie.pokeapiandroidtask.domain.PokemonResult"
             app:nullable="false" />
+
+        <argument
+            android:name="dominant_color"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

@@ -23,63 +23,58 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/green"
+            android:background="@color/green"
             app:cardPreventCornerOverlap="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/pokemon_item_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/pokemon_image_height"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/pokemon_item_image"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/pokemon_image_height"
-                    android:layout_marginTop="10dp"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/pokemon_item_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_item_image"
+                tools:text="charmander" />
 
-                <TextView
-                    android:id="@+id/pokemon_item_height"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pokemon_item_image"
-                    tools:text="charmander" />
+            <TextView
+                android:id="@+id/pokemon_item_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_item_image"
+                tools:text="charmander" />
 
-                <TextView
-                    android:id="@+id/pokemon_item_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pokemon_item_image"
-                    tools:text="charmander" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/stats"

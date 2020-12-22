@@ -22,6 +22,9 @@ import javax.inject.Singleton
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
+/**
+ * Dagger Hilt module, used in dependency injection, provides various dependencies used in the app.
+ */
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {
@@ -40,7 +43,7 @@ object AppModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(provideCacheInterceptor())
+            .addInterceptor(cacheInterceptor)
             .cache(cache)
 
         if (BuildConfig.DEBUG) okHttpClient.addInterceptor(loggingInterceptor)
@@ -56,6 +59,8 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    /*Caching data for 30 minutes, I can as well cache the data for a month or so because the pokeapi is static and rarely change but
+    for practicality went for half an hour, this is basic cache,  could as use room data base */
     @Provides
     @Singleton
     fun provideCache(@ApplicationContext appContext: Context): Cache {
@@ -66,18 +71,16 @@ object AppModule {
         )
     }
 
-    private fun provideCacheInterceptor(): Interceptor {
-        return object : Interceptor {
-            @Throws(IOException::class)
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val response: Response = chain.proceed(chain.request())
-                val cacheControl = CacheControl.Builder()
-                    .maxAge(30, TimeUnit.MINUTES)
-                    .build()
-                return response.newBuilder()
-                    .header("Cache-Control", cacheControl.toString())
-                    .build()
-            }
+    private val cacheInterceptor = object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val response: Response = chain.proceed(chain.request())
+            val cacheControl = CacheControl.Builder()
+                .maxAge(30, TimeUnit.MINUTES)
+                .build()
+            return response.newBuilder()
+                .header("Cache-Control", cacheControl.toString())
+                .build()
         }
     }
 }

@@ -29,12 +29,6 @@
                 android:thickness="4sp"
                 android:useLevel="true">
 
-                <rotate
-                    android:fromDegrees="0"
-                    android:pivotX="50%"
-                    android:pivotY="50%"
-                    android:toDegrees="360" />
-
                 <gradient
                     android:centerColor="@color/green"
                     android:endColor="@color/green"

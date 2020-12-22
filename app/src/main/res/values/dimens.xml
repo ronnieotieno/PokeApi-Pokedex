@@ -3,7 +3,7 @@
 
 <resources>
 
-    <dimen name="pokemon_image_height">95dp</dimen>
+    <dimen name="pokemon_image_height">100dp</dimen>
     <dimen name="card_side_margin">10dp</dimen>
     <dimen name="card_bottom_margin">24dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
