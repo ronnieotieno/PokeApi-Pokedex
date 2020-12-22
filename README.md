@@ -27,4 +27,4 @@ navigation between fragments
 |:----:|:----:|
 
 ##Demo
-<img src="demo/gif.gif" width=200/>
+<img src="demo/gif.gif" width=400/>
