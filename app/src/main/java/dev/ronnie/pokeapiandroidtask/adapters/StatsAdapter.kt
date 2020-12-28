@@ -48,7 +48,6 @@ class StatsAdapter :
         return stats.size
     }
 
-
     class CartViewHolder(private val binding: StatItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

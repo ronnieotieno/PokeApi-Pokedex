@@ -36,6 +36,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
+    private var hasInitiatedInitialCall = false
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: PokemonListViewModel by viewModels()
     private var job: Job? = null
@@ -138,7 +139,8 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
             footer = LoadingStateAdapter { retry() }
         )
 
-        startFetchingPokemon(null, false)
+        if (!hasInitiatedInitialCall) startFetchingPokemon(null, false); hasInitiatedInitialCall =
+            true
 
         //the progress will only show when the adapter is refreshing and its empty
         adapter.addLoadStateListener { loadState ->

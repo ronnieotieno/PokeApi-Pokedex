@@ -71,7 +71,6 @@ class NetworkCallTest {
 
     @Test
     fun test_response_name(): Unit = runBlocking {
-
         val data = apiService.getPokemons(1, 0)
         ViewMatchers.assertThat(data.results[0].name, CoreMatchers.equalTo("bulbasaur"))
     }
