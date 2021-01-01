@@ -56,8 +56,8 @@ class StatsAdapter :
         fun bind(stat: Stats) {
             binding.apply {
                 val mProgress = progressCircular
-                mProgress.progress = stat.base_stat
                 mProgress.secondaryProgress = MAX_BASE_STATE
+                mProgress.progress = stat.base_stat
                 mProgress.max = MAX_BASE_STATE
 
                 statName.text = stat.stat.name

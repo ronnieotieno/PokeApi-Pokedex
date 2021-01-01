@@ -6,4 +6,5 @@
         android:drawable="@drawable/ic_pokeball"
         android:gravity="center" />
 
+
 </layer-list>
