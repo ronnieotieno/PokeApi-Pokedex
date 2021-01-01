@@ -32,7 +32,7 @@ class PokemonStaFragmentTest {
 
         //Wait for the pokemon to load, should fail in case pokemon list doesn't load.
         //alternatively pass the pokemon as bundle without relying on network call
-        Thread.sleep(15000)
+        Thread.sleep(5000)
 
         val recyclerView = onView(
             allOf(

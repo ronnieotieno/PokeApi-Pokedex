@@ -56,6 +56,7 @@ class NetworkCallTest {
         val jsonStream: InputStream = context!!.resources.assets.open("response.json")
         val jsonBytes: ByteArray = jsonStream.readBytes()
 
+
         val response = MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(String(jsonBytes))
