@@ -59,8 +59,8 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    /*Caching data for 30 minutes, I can as well cache the data for a month or so because the pokeapi is static and rarely change but
-    for practicality went for half an hour, this is basic cache,  could as use room data base */
+    /*Caching data for 30 minutes, can as well cache the data for a month or so because the pokeapi is static and rarely change but
+    for practicality went for half an hour, this is basic cache,  could as well use room data base */
     @Provides
     @Singleton
     fun provideCache(@ApplicationContext appContext: Context): Cache {
