@@ -1,7 +1,7 @@
 package dev.ronnie.pokeapiandroidtask
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.pokeapiandroidtask.databinding.ActivityMainBinding
 
@@ -13,6 +13,5 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
 }
