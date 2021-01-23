@@ -27,7 +27,7 @@
 
         <argument
             android:name="pokemon_result"
-            app:argType="dev.ronnie.pokeapiandroidtask.domain.PokemonResult"
+            app:argType="dev.ronnie.pokeapiandroidtask.model.PokemonResult"
             app:nullable="false" />
 
         <argument
