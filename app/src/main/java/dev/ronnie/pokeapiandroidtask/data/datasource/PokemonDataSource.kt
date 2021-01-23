@@ -2,8 +2,8 @@ package dev.ronnie.pokeapiandroidtask.data.datasource
 
 import androidx.paging.PagingSource
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
-import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
-import dev.ronnie.pokeapiandroidtask.domain.SinglePokemonResponse
+import dev.ronnie.pokeapiandroidtask.model.PokemonResult
+import dev.ronnie.pokeapiandroidtask.model.SinglePokemonResponse
 import dev.ronnie.pokeapiandroidtask.utils.SEARCH_LOAD_SIZE
 import dev.ronnie.pokeapiandroidtask.utils.STARTING_OFFSET_INDEX
 import java.io.IOException
@@ -47,7 +47,7 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
             filteredData.forEach {
                 //example url https://pokeapi.co/api/v2/pokemon/1/
                 val id = it.url.substringAfter("pokemon").replace("/", "").toInt()
-                val singlePokemonResponse = getSinglePokemon(id, pokemonApi)
+                val singlePokemonResponse = getSinglePokemon(id)
                 it.singlePokemonResponse = singlePokemonResponse
             }
 
@@ -67,7 +67,7 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
         }
     }
 
-    private suspend fun getSinglePokemon(id: Int, pokemonApi: PokemonApi): SinglePokemonResponse? {
+    private suspend fun getSinglePokemon(id: Int): SinglePokemonResponse? {
         return try {
             pokemonApi.getSinglePokemon(id)
         } catch (t: Throwable) {

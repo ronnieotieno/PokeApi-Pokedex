@@ -1,7 +1,7 @@
 package dev.ronnie.pokeapiandroidtask.api
 
-import dev.ronnie.pokeapiandroidtask.domain.PokemonResponse
-import dev.ronnie.pokeapiandroidtask.domain.SinglePokemonResponse
+import dev.ronnie.pokeapiandroidtask.model.PokemonResponse
+import dev.ronnie.pokeapiandroidtask.model.SinglePokemonResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

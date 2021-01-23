@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/pokemonListFragment">
 
     <fragment
         android:id="@+id/pokemonListFragment"
+        tool:layout="@layout/fragment_pokemon_list"
         android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonListFragment"
         android:label="PokemonListFragment">
         <action
@@ -19,6 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/pokemonStatsFragment"
+        tool:layout="@layout/fragment_pokemon_stats"
         android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonStatsFragment"
         android:label="PokemonStatsFragment">
 

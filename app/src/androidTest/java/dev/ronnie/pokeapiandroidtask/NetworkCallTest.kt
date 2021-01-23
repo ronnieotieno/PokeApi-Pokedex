@@ -2,6 +2,7 @@ package dev.ronnie.pokeapiandroidtask
 
 import android.content.Context
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import kotlinx.coroutines.runBlocking
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit
 /**
  *created by Ronnie Otieno on 22-Dec-20.
  **/
-@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class NetworkCallTest {
     private var context: Context? = null
     private var mockWebServer = MockWebServer()
@@ -71,13 +72,13 @@ class NetworkCallTest {
     }
 
     @Test
-    fun test_response_name(): Unit = runBlocking {
+    fun test_response_name() = runBlocking {
         val data = apiService.getPokemons(1, 0)
         ViewMatchers.assertThat(data.results[0].name, CoreMatchers.equalTo("bulbasaur"))
     }
 
     @Test
-    fun test_id_extraction(): Unit = runBlocking {
+    fun test_id_extraction() = runBlocking {
         val data = apiService.getPokemons(1, 0)
         val id = data.results[0].url.substringAfter("pokemon").replace("/", "").toInt()
         ViewMatchers.assertThat(id, CoreMatchers.equalTo(1))

@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.databinding.ListItemPokemonBinding
-import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
+import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.utils.NETWORK_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 
@@ -59,7 +59,7 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
         fun bind(pokemonResult: PokemonResult, navigate: (PokemonResult, Int) -> Unit) {
 
             binding.apply {
-                pokemonItemTitle.text = pokemonResult.name
+                pokemonItemTitle.text = pokemonResult.name.capitalize()
                 loadImage(this, pokemonResult)
 
                 root.setOnClickListener {

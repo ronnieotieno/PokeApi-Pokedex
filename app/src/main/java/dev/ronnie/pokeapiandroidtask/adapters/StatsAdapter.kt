@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ronnie.pokeapiandroidtask.databinding.StatItemPokemonBinding
-import dev.ronnie.pokeapiandroidtask.domain.Stats
+import dev.ronnie.pokeapiandroidtask.model.Stats
 import dev.ronnie.pokeapiandroidtask.utils.MAX_BASE_STATE
 
 

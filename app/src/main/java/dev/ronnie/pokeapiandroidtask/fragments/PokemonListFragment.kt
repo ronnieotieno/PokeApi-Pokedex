@@ -21,7 +21,7 @@ import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.adapters.LoadingStateAdapter
 import dev.ronnie.pokeapiandroidtask.adapters.PokemonAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonListBinding
-import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
+import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.toast
 import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonListViewModel

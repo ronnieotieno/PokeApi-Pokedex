@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.adapters.StatsAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonStatsBinding
-import dev.ronnie.pokeapiandroidtask.domain.Stats
+import dev.ronnie.pokeapiandroidtask.model.Stats
 
 
 /**
@@ -41,7 +41,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
         val toolbar = binding.toolbar as Toolbar
         toolbar.elevation = 0.0F
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar!!.title = pokemonResult.name
+        (activity as AppCompatActivity).supportActionBar!!.title = pokemonResult.name.capitalize()
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar!!.setHomeButtonEnabled(true)
 

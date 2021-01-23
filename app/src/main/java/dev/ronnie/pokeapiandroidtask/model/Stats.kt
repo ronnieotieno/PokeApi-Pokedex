@@ -1,4 +1,4 @@
-package dev.ronnie.pokeapiandroidtask.domain
+package dev.ronnie.pokeapiandroidtask.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

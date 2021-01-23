@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dev.ronnie.pokeapiandroidtask.data.repositories.PokemonRepository
-import dev.ronnie.pokeapiandroidtask.domain.PokemonResult
+import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import kotlinx.coroutines.flow.Flow
 
 
