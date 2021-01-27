@@ -42,10 +42,11 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private var job: Job? = null
 
     //adapter with higher order function passed which is called on onclick on adapter
-    private val adapter = PokemonAdapter { pokemonResult: PokemonResult, dominantColor: Int ->
+    private val adapter = PokemonAdapter { pokemonResult: PokemonResult, dominantColor: Int, picture:String? ->
         navigate(
             pokemonResult,
-            dominantColor
+            dominantColor,
+            picture
         )
     }
 
@@ -194,12 +195,12 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     }
 
     //navigating to stats fragment passing the pokemon and the dominant color
-    private fun navigate(pokemonResult: PokemonResult, dominantColor: Int) {
+    private fun navigate(pokemonResult: PokemonResult, dominantColor: Int, picture:String?) {
         binding.root.findNavController()
             .navigate(
                 PokemonListFragmentDirections.toPokemonStatsFragment(
                     pokemonResult,
-                    dominantColor
+                    dominantColor,picture
                 )
             )
     }

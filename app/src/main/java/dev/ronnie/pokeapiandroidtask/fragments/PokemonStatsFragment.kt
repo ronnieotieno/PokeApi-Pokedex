@@ -30,6 +30,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
         val argument = arguments?.let { args.fromBundle(it) }
         val pokemonResult = argument?.pokemonResult!!
         val dominantColor = argument.dominantColor
+        val picture = argument.picture
 
         //setting the colors based on dominant colors
         if (dominantColor != 0) {
@@ -61,7 +62,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
             adapter.setStats(pokemonResult.singlePokemonResponse?.stats as ArrayList<Stats>)
 
             Glide.with(root)
-                .load(pokemonResult.singlePokemonResponse?.sprites?.front_default)
+                .load(picture)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(pokemonItemImage)
         }

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/pokemonListFragment"
-        tool:layout="@layout/fragment_pokemon_list"
         android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonListFragment"
-        android:label="PokemonListFragment">
+        android:label="PokemonListFragment"
+        tool:layout="@layout/fragment_pokemon_list">
         <action
             android:id="@+id/to_pokemonStatsFragment"
             app:destination="@id/pokemonStatsFragment"
@@ -21,9 +21,9 @@
     </fragment>
     <fragment
         android:id="@+id/pokemonStatsFragment"
-        tool:layout="@layout/fragment_pokemon_stats"
         android:name="dev.ronnie.pokeapiandroidtask.fragments.PokemonStatsFragment"
-        android:label="PokemonStatsFragment">
+        android:label="PokemonStatsFragment"
+        tool:layout="@layout/fragment_pokemon_stats">
 
         <argument
             android:name="pokemon_result"
@@ -32,7 +32,11 @@
 
         <argument
             android:name="dominant_color"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="picture"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

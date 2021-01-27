@@ -29,15 +29,16 @@ import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 
 //Paging Adapter belonging to paging 3 in Android jetpack, used to paginate data.
 
-class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
+class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit) :
     PagingDataAdapter<PokemonResult, PokemonAdapter.ViewHolder>(
-        PlayersDiffCallback()
+        PokemonDiffCallback()
     ) {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = getItem(position)!!
 
-        holder.bind(data, navigate)
+        holder.bind(data)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,20 +51,21 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
 
     }
 
-    class ViewHolder(
+   inner class ViewHolder(
         private val binding: ListItemPokemonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         var dominantColor: Int = 0
+        var picture: String? = ""
 
-        fun bind(pokemonResult: PokemonResult, navigate: (PokemonResult, Int) -> Unit) {
+        fun bind(pokemonResult: PokemonResult) {
 
             binding.apply {
                 pokemonItemTitle.text = pokemonResult.name.capitalize()
                 loadImage(this, pokemonResult)
 
                 root.setOnClickListener {
-                    navigate.invoke(pokemonResult, dominantColor)
+                    navigate.invoke(pokemonResult, dominantColor, picture)
                 }
             }
 
@@ -76,9 +78,19 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
 
              */
 
+            //showing either of four sprites
+
+            when ((1..4).random()) {
+                1 -> picture = pokemonResult.singlePokemonResponse?.sprites?.front_default
+                2 -> picture = pokemonResult.singlePokemonResponse?.sprites?.back_default
+                3 -> picture = pokemonResult.singlePokemonResponse?.sprites?.front_shiny
+                4 -> picture = pokemonResult.singlePokemonResponse?.sprites?.back_shiny
+            }
+
+
             binding.apply {
                 Glide.with(root)
-                    .load(pokemonResult.singlePokemonResponse?.sprites?.front_default)
+                    .load(picture)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
@@ -126,7 +138,7 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int) -> Unit) :
         }
     }
 
-    private class PlayersDiffCallback : DiffUtil.ItemCallback<PokemonResult>() {
+    private class PokemonDiffCallback : DiffUtil.ItemCallback<PokemonResult>() {
         override fun areItemsTheSame(oldItem: PokemonResult, newItem: PokemonResult): Boolean {
             return oldItem == newItem
         }

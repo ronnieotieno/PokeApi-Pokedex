@@ -9,8 +9,8 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
         android:id="@+id/card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
         android:layout_marginEnd="@dimen/card_side_margin"
