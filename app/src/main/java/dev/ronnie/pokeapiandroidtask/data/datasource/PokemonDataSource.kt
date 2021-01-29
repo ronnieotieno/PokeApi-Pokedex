@@ -1,6 +1,7 @@
 package dev.ronnie.pokeapiandroidtask.data.datasource
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.model.SinglePokemonResponse
@@ -73,5 +74,11 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
         } catch (t: Throwable) {
             null
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, PokemonResult>): Int? {
+
+        return state.anchorPosition
+
     }
 }

@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
  *created by Ronnie Otieno on 20-Dec-20.
  **/
 
+
 @AndroidEntryPoint
 class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
@@ -42,19 +43,21 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private var job: Job? = null
 
     //adapter with higher order function passed which is called on onclick on adapter
-    private val adapter = PokemonAdapter { pokemonResult: PokemonResult, dominantColor: Int, picture:String? ->
-        navigate(
-            pokemonResult,
-            dominantColor,
-            picture
-        )
-    }
+    private val adapter =
+        PokemonAdapter { pokemonResult: PokemonResult, dominantColor: Int, picture: String? ->
+            navigate(
+                pokemonResult,
+                dominantColor,
+                picture
+            )
+        }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPokemonListBinding.bind(view)
+        // viewModel = ViewModelProvider(this)[PokemonListViewModel::class.java]
 
         setAdapter()
 
@@ -93,7 +96,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         job?.cancel()
         job = lifecycleScope.launch {
             if (shouldSubmitEmpty) adapter.submitData(PagingData.empty())
-            viewModel.getAdverts(searchString).collectLatest {
+            viewModel.getpokemons(searchString).collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -195,12 +198,12 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     }
 
     //navigating to stats fragment passing the pokemon and the dominant color
-    private fun navigate(pokemonResult: PokemonResult, dominantColor: Int, picture:String?) {
+    private fun navigate(pokemonResult: PokemonResult, dominantColor: Int, picture: String?) {
         binding.root.findNavController()
             .navigate(
                 PokemonListFragmentDirections.toPokemonStatsFragment(
                     pokemonResult,
-                    dominantColor,picture
+                    dominantColor, picture
                 )
             )
     }

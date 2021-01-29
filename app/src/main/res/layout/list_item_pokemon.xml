@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?android:selectableItemBackground">
 
-    <data>
-
-    </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.adapters.StatsAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonStatsBinding
@@ -17,6 +18,7 @@ import dev.ronnie.pokeapiandroidtask.model.Stats
 /**
  *created by Ronnie Otieno on 21-Dec-20.
  **/
+@AndroidEntryPoint
 class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
 
     private lateinit var binding: FragmentPokemonStatsBinding

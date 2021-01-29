@@ -4,8 +4,8 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import dev.ronnie.pokeapiandroidtask.BuildConfig
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import dev.ronnie.pokeapiandroidtask.utils.BASE_URL
@@ -26,9 +26,8 @@ import javax.inject.Singleton
  * Dagger Hilt module, used in dependency injection, provides various dependencies used in the app.
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
     fun providePokemonApi(retrofit: Retrofit): PokemonApi = retrofit.create(PokemonApi::class.java)
