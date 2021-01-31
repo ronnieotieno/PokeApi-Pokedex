@@ -28,7 +28,6 @@ import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
  **/
 
 //Paging Adapter belonging to paging 3 in Android jetpack, used to paginate data.
-
 class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit) :
     PagingDataAdapter<PokemonResult, PokemonAdapter.ViewHolder>(
         PokemonDiffCallback()
@@ -51,7 +50,7 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
 
     }
 
-   inner class ViewHolder(
+    inner class ViewHolder(
         private val binding: ListItemPokemonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -86,7 +85,6 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
                 3 -> picture = pokemonResult.singlePokemonResponse?.sprites?.front_shiny
                 4 -> picture = pokemonResult.singlePokemonResponse?.sprites?.back_shiny
             }
-
 
             binding.apply {
                 Glide.with(root)
