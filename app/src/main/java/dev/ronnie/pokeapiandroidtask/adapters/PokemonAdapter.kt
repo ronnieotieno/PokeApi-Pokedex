@@ -21,6 +21,7 @@ import dev.ronnie.pokeapiandroidtask.databinding.ListItemPokemonBinding
 import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.utils.NETWORK_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
+import dev.ronnie.pokeapiandroidtask.utils.getPicUrl
 
 
 /**
@@ -77,14 +78,7 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
 
              */
 
-            //showing either of four sprites
-
-            when ((1..4).random()) {
-                1 -> picture = pokemonResult.singlePokemonResponse?.sprites?.front_default
-                2 -> picture = pokemonResult.singlePokemonResponse?.sprites?.back_default
-                3 -> picture = pokemonResult.singlePokemonResponse?.sprites?.front_shiny
-                4 -> picture = pokemonResult.singlePokemonResponse?.sprites?.back_shiny
-            }
+            picture = pokemonResult.url.getPicUrl()
 
             binding.apply {
                 Glide.with(root)

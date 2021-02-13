@@ -45,7 +45,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private var job: Job? = null
 
     @Inject
-    lateinit var disclaimerDialog: DisclaimerDialog
+    lateinit var thankYouDialog: ThankYouDialog
 
     //adapter with higher order function passed which is called on onclick on adapter
     private val adapter =
@@ -68,7 +68,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         lifecycleScope.launch {
             viewModel.isDialogShown.collect {
                 if (it == null || it == false) {
-                    disclaimerDialog.show(childFragmentManager, null)
+                    thankYouDialog.show(childFragmentManager, null)
                 }
             }
         }

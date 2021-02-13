@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -12,7 +15,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.adapters.StatsAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonStatsBinding
+import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.model.Stats
+import dev.ronnie.pokeapiandroidtask.utils.Resource
+import dev.ronnie.pokeapiandroidtask.utils.extractId
+import dev.ronnie.pokeapiandroidtask.utils.toast
+import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonStatsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 /**
@@ -24,6 +36,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
     private lateinit var binding: FragmentPokemonStatsBinding
     private val adapter = StatsAdapter()
     private val args = PokemonStatsFragmentArgs
+    private val viewModel: PokemonStatsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,21 +65,41 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
             binding.root.findNavController().navigateUp()
         }
 
+        //load pic
         binding.apply {
-            (pokemonResult.singlePokemonResponse?.weight?.div(10.0).toString() + " metres").also {
-                pokemonItemWeight.text = it
-            }
-            (pokemonResult.singlePokemonResponse?.height?.div(10.0).toString() + " kgs").also {
-                pokemonItemHeight.text = it
-            }
-
-            pokemonStatList.adapter = adapter
-            adapter.setStats(pokemonResult.singlePokemonResponse?.stats as ArrayList<Stats>)
-
             Glide.with(root)
                 .load(picture)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(pokemonItemImage)
+        }
+
+        loadSinglePokemon(pokemonResult)
+
+    }
+
+    private fun loadSinglePokemon(pokemonResult: PokemonResult) {
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            //a bit delay for the animation to finish
+            delay(200)
+            viewModel.getSinglePokemon(pokemonResult.url.extractId()).collect {
+                binding.progressCircular.isVisible = false
+                if (it is Resource.Success) {
+
+                    binding.apply {
+                        (it.value.weight.div(10.0).toString() + " kgs").also { weight ->
+                            pokemonItemWeight.text = weight
+                        }
+                        (it.value.height.div(10.0).toString() + " metres").also { height ->
+                            pokemonItemHeight.text = height
+                        }
+                        pokemonStatList.adapter = adapter
+                        adapter.setStats(it.value.stats as ArrayList<Stats>)
+                    }
+                } else if (it is Resource.Failure) {
+                    requireContext().toast("There was an error loading the pokemon")
+                }
+            }
         }
     }
 }

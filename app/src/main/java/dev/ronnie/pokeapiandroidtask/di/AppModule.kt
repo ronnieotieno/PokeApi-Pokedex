@@ -83,7 +83,7 @@ object AppModule {
         override fun intercept(chain: Interceptor.Chain): Response {
             val response: Response = chain.proceed(chain.request())
             val cacheControl = CacheControl.Builder()
-                .maxAge(30, TimeUnit.MINUTES)
+                .maxAge(30, TimeUnit.DAYS)
                 .build()
             return response.newBuilder()
                 .header("Cache-Control", cacheControl.toString())

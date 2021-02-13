@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import dev.ronnie.pokeapiandroidtask.model.PokemonResult
-import dev.ronnie.pokeapiandroidtask.model.SinglePokemonResponse
 import dev.ronnie.pokeapiandroidtask.utils.SEARCH_LOAD_SIZE
 import dev.ronnie.pokeapiandroidtask.utils.STARTING_OFFSET_INDEX
 import java.io.IOException
@@ -42,15 +41,6 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
             } else {
                 data.results
             }
-            /* After getting the pokemon after calling endpoint pokemon, extract the pokemon id and search individual pokemon data
-        using  pokemon/{id}/ endpoint then adding the results to the pokemon result data class
-        */
-            filteredData.forEach {
-                //example url https://pokeapi.co/api/v2/pokemon/1/
-                val id = it.url.substringAfter("pokemon").replace("/", "").toInt()
-                val singlePokemonResponse = getSinglePokemon(id)
-                it.singlePokemonResponse = singlePokemonResponse
-            }
 
             //next offset = last offset + loadsize, returning null is telling the paging 3 that there is no more to load and should stop
             LoadResult.Page(
@@ -68,13 +58,6 @@ class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchSt
         }
     }
 
-    private suspend fun getSinglePokemon(id: Int): SinglePokemonResponse? {
-        return try {
-            pokemonApi.getSinglePokemon(id)
-        } catch (t: Throwable) {
-            null
-        }
-    }
 
     override fun getRefreshKey(state: PagingState<Int, PokemonResult>): Int? {
 

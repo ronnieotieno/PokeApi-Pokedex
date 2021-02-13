@@ -15,7 +15,6 @@ import javax.inject.Inject
 class DisclaimerViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository) :
     ViewModel() {
 
-
     fun saveDialogShown() = viewModelScope.launch {
 
         dataStoreRepository.saveDialogShown()
