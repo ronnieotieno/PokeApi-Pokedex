@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.ronnie.pokeapiandroidtask.databinding.StatItemPokemonBinding
 import dev.ronnie.pokeapiandroidtask.model.Stats
 import dev.ronnie.pokeapiandroidtask.utils.MAX_BASE_STATE
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**
@@ -57,8 +61,17 @@ class StatsAdapter :
             binding.apply {
                 val mProgress = progressCircular
                 mProgress.secondaryProgress = MAX_BASE_STATE
-                mProgress.progress = stat.base_stat
                 mProgress.max = MAX_BASE_STATE
+
+                //The increment animation on progress bar is achieved by this.
+                CoroutineScope(Dispatchers.Main).launch {
+                    var state = 0
+                    while (state <= stat.base_stat) {
+                        mProgress.progress = state
+                        state++
+                        delay(10)
+                    }
+                }
 
                 statName.text = stat.stat.name
                 statCount.text = stat.base_stat.toString()

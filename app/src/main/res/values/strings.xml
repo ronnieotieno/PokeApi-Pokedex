@@ -6,5 +6,5 @@
     <string name="statistics">Base Stats</string>
     <string name="disclaimer">You may experience slow loading of pokemons, this is because of the way the Pokeapi is designed. Sorry for any inconvenience caused.</string>
     <string name="disclaimer_header">Disclaimer</string>
-    <string name="confirm_disclaimer">Confirm</string>
+    <string name="confirm_disclaimer">Continue</string>
 </resources>
