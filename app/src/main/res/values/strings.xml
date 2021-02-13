@@ -4,4 +4,7 @@
     <string name="retry">Retry</string>
     <string name="tap_to_retry">There was an error\ntap to retry</string>
     <string name="statistics">Base Stats</string>
+    <string name="disclaimer">You may experience slow loading of pokemons, this is because of the way the Pokeapi is designed. Sorry for any inconvenience caused.</string>
+    <string name="disclaimer_header">Disclaimer</string>
+    <string name="confirm_disclaimer">Confirm</string>
 </resources>

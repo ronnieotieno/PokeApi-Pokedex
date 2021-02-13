@@ -26,8 +26,10 @@ import dev.ronnie.pokeapiandroidtask.utils.PRODUCT_VIEW_TYPE
 import dev.ronnie.pokeapiandroidtask.utils.toast
 import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonListViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  *created by Ronnie Otieno on 20-Dec-20.
@@ -41,6 +43,9 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: PokemonListViewModel by viewModels()
     private var job: Job? = null
+
+    @Inject
+    lateinit var disclaimerDialog: DisclaimerDialog
 
     //adapter with higher order function passed which is called on onclick on adapter
     private val adapter =
@@ -57,9 +62,16 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPokemonListBinding.bind(view)
-        // viewModel = ViewModelProvider(this)[PokemonListViewModel::class.java]
 
         setAdapter()
+
+        lifecycleScope.launch {
+            viewModel.isDialogShown.collect {
+                if (it == null || it == false) {
+                    disclaimerDialog.show(childFragmentManager, null)
+                }
+            }
+        }
 
         binding.searchView.setOnTouchListener { v, _ ->
             v.isFocusableInTouchMode = true
@@ -96,7 +108,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
         job?.cancel()
         job = lifecycleScope.launch {
             if (shouldSubmitEmpty) adapter.submitData(PagingData.empty())
-            viewModel.getpokemons(searchString).collectLatest {
+            viewModel.getPokemons(searchString).collectLatest {
                 adapter.submitData(it)
             }
         }

@@ -16,6 +16,15 @@
 
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+
+    </style>
+
     <style name="CardAppearance" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">0dp</item>

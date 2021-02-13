@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.ronnie.pokeapiandroidtask.BuildConfig
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
+import dev.ronnie.pokeapiandroidtask.data.repositories.DataStoreRepository
 import dev.ronnie.pokeapiandroidtask.utils.BASE_URL
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,6 +29,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideDataStore(@ApplicationContext appContext: Context): DataStoreRepository {
+        return DataStoreRepository(appContext.applicationContext)
+    }
+
     @Provides
     @Singleton
     fun providePokemonApi(retrofit: Retrofit): PokemonApi = retrofit.create(PokemonApi::class.java)
