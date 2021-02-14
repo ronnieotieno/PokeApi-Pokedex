@@ -81,23 +81,29 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
 
         lifecycleScope.launch(Dispatchers.Main) {
             //a bit delay for the animation to finish
-            delay(200)
+            delay(300)
             viewModel.getSinglePokemon(pokemonResult.url.extractId()).collect {
-                binding.progressCircular.isVisible = false
-                if (it is Resource.Success) {
-
-                    binding.apply {
-                        (it.value.weight.div(10.0).toString() + " kgs").also { weight ->
-                            pokemonItemWeight.text = weight
+                when (it) {
+                    is Resource.Success -> {
+                        binding.progressCircular.isVisible = false
+                        binding.apply {
+                            (it.value.weight.div(10.0).toString() + " kgs").also { weight ->
+                                pokemonItemWeight.text = weight
+                            }
+                            (it.value.height.div(10.0).toString() + " metres").also { height ->
+                                pokemonItemHeight.text = height
+                            }
+                            pokemonStatList.adapter = adapter
+                            adapter.setStats(it.value.stats as ArrayList<Stats>)
                         }
-                        (it.value.height.div(10.0).toString() + " metres").also { height ->
-                            pokemonItemHeight.text = height
-                        }
-                        pokemonStatList.adapter = adapter
-                        adapter.setStats(it.value.stats as ArrayList<Stats>)
                     }
-                } else if (it is Resource.Failure) {
-                    requireContext().toast("There was an error loading the pokemon")
+                    is Resource.Failure -> {
+                        binding.progressCircular.isVisible = false
+                        requireContext().toast("There was an error loading the pokemon")
+                    }
+                    is Resource.Loading -> {
+                        binding.progressCircular.isVisible = true
+                    }
                 }
             }
         }

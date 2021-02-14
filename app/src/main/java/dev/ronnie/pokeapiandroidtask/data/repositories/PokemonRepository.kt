@@ -31,7 +31,6 @@ class PokemonRepository @Inject constructor(private val pokemonApi: PokemonApi) 
     ).flow
 
     suspend fun getSinglePokemon(id: Int) = safeApiCall {
-
         pokemonApi.getSinglePokemon(id)
 
     }

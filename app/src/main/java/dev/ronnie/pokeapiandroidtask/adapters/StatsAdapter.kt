@@ -73,7 +73,14 @@ class StatsAdapter :
                     }
                 }
 
-                statName.text = stat.stat.name
+                statName.text = stat.stat.name.capitalize()
+
+                if (stat.stat.name.contains("-")) {
+                    val first = stat.stat.name.substringBefore("-").capitalize()
+                    val second = stat.stat.name.substringAfter("-").capitalize()
+
+                    "$first - $second".also { statName.text = it }
+                }
                 statCount.text = stat.base_stat.toString()
 
             }

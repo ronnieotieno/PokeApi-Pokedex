@@ -12,7 +12,7 @@ import javax.inject.Inject
  *created by Ronnie Otieno on 13-Feb-21.
  **/
 @HiltViewModel
-class DisclaimerViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository) :
+class ThankYouViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository) :
     ViewModel() {
 
     fun saveDialogShown() = viewModelScope.launch {

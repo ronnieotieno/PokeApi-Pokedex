@@ -1,6 +1,12 @@
 package dev.ronnie.pokeapiandroidtask.utils
 
 import android.content.Context
+import android.transition.Slide
+import android.transition.Transition
+import android.transition.TransitionManager
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 
 
@@ -17,4 +23,12 @@ fun String.extractId() = this.substringAfter("pokemon").replace("/", "").toInt()
 fun String.getPicUrl(): String {
     val id = this.extractId()
     return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"
+}
+
+fun View.toggle(show: Boolean) {
+    val transition: Transition = Slide(Gravity.BOTTOM)
+    transition.duration = 200
+    transition.addTarget(this)
+    TransitionManager.beginDelayedTransition(this.parent as ViewGroup?, transition)
+    this.visibility = if (show) View.VISIBLE else View.GONE
 }

@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.pokeapiandroidtask.R
 import dev.ronnie.pokeapiandroidtask.databinding.DialogThankYouBinding
-import dev.ronnie.pokeapiandroidtask.viewmodels.DisclaimerViewModel
+import dev.ronnie.pokeapiandroidtask.viewmodels.ThankYouViewModel
 import javax.inject.Inject
 
 /**
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ThankYouDialog @Inject constructor() : DialogFragment(R.layout.dialog_thank_you) {
 
     private lateinit var binding: DialogThankYouBinding
-    private val viewModel: DisclaimerViewModel by viewModels()
+    private val viewModel: ThankYouViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

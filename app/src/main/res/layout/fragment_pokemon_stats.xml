@@ -115,9 +115,10 @@
                     tools:listitem="@layout/stat_item_pokemon" />
 
                 <ProgressBar
+                    android:id="@+id/progress_circular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/progress_circular"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/card"
                     app:layout_constraintStart_toStartOf="parent"
