@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 
 
 /**
@@ -30,5 +31,5 @@ fun View.toggle(show: Boolean) {
     transition.duration = 200
     transition.addTarget(this)
     TransitionManager.beginDelayedTransition(this.parent as ViewGroup?, transition)
-    this.visibility = if (show) View.VISIBLE else View.GONE
+    this.isVisible = show
 }

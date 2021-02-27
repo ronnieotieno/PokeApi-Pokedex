@@ -26,7 +26,7 @@
                 android:layout_centerHorizontal="true"
                 android:indeterminate="false"
                 android:max="255"
-                android:progress="70"
+                android:progress="170"
                 android:progressDrawable="@drawable/progress_bar_drawable"
                 android:secondaryProgress="255"
                 app:layout_constraintEnd_toEndOf="parent"

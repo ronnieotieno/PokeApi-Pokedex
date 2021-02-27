@@ -102,7 +102,6 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-
                             val drawable = resource as BitmapDrawable
                             val bitmap = drawable.bitmap
                             Palette.Builder(bitmap).generate {

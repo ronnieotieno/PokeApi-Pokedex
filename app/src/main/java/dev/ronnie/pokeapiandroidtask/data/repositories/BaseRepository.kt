@@ -1,6 +1,6 @@
 package dev.ronnie.pokeapiandroidtask.data.repositories
 
-import dev.ronnie.pokeapiandroidtask.utils.Resource
+import dev.ronnie.pokeapiandroidtask.utils.NetworkResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -12,15 +12,14 @@ import retrofit2.HttpException
 open class BaseRepository {
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
-    ): Resource<T> {
+    ): NetworkResource<T> {
         return withContext(Dispatchers.IO) {
             try {
-                Resource.Success(apiCall.invoke())
+                NetworkResource.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
                     is HttpException -> {
-
-                        Resource.Failure(
+                        NetworkResource.Failure(
                             false,
                             throwable.code(),
                             throwable.response()?.errorBody()
@@ -28,7 +27,7 @@ open class BaseRepository {
 
                     }
                     else -> {
-                        Resource.Failure(true, null, null)
+                        NetworkResource.Failure(true, null, null)
                     }
                 }
             }

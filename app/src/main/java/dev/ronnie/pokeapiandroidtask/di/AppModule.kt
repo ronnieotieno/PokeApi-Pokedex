@@ -52,7 +52,6 @@ object AppModule {
             .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(cacheInterceptor)
             .cache(cache)
-
         if (BuildConfig.DEBUG) okHttpClient.addInterceptor(loggingInterceptor)
 
         return okHttpClient.build()
@@ -66,8 +65,7 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    /*Caching data for 30 minutes, can as well cache the data for a month or so because the pokeapi is static and rarely change but
-    for practicality went for half an hour, this is basic cache,  could as well use room data base */
+    /*Caching data */
     @Provides
     @Singleton
     fun provideCache(@ApplicationContext appContext: Context): Cache {

@@ -74,7 +74,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.2"
     androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
     androidTestImplementation "com.google.truth:truth:0.42"
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
     androidTestImplementation "com.google.dagger:hilt-android-testing:2.28.3-alpha"
     implementation "com.squareup.okhttp3:mockwebserver:4.7.2"
@@ -94,8 +94,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //dagger hilt
-    implementation 'com.google.dagger:hilt-android:2.31-alpha'
-    kapt 'com.google.dagger:hilt-android-compiler:2.31-alpha'
+    implementation 'com.google.dagger:hilt-android:2.31.1-alpha'
+    kapt 'com.google.dagger:hilt-android-compiler:2.31.1-alpha'
 
     // Hilt Jetpack Integrations
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
@@ -105,8 +105,9 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     //Datastore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.30"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha07"
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.31"
 
     //get Dominant image color
     implementation 'androidx.palette:palette-ktx:1.0.0'

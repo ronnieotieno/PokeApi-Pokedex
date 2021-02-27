@@ -17,7 +17,7 @@ import dev.ronnie.pokeapiandroidtask.adapters.StatsAdapter
 import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonStatsBinding
 import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.model.Stats
-import dev.ronnie.pokeapiandroidtask.utils.Resource
+import dev.ronnie.pokeapiandroidtask.utils.NetworkResource
 import dev.ronnie.pokeapiandroidtask.utils.extractId
 import dev.ronnie.pokeapiandroidtask.utils.toast
 import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonStatsViewModel
@@ -77,6 +77,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
 
     }
 
+
     private fun loadSinglePokemon(pokemonResult: PokemonResult) {
 
         lifecycleScope.launch(Dispatchers.Main) {
@@ -84,7 +85,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
             delay(300)
             viewModel.getSinglePokemon(pokemonResult.url.extractId()).collect {
                 when (it) {
-                    is Resource.Success -> {
+                    is NetworkResource.Success -> {
                         binding.progressCircular.isVisible = false
                         binding.apply {
                             (it.value.weight.div(10.0).toString() + " kgs").also { weight ->
@@ -97,11 +98,11 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
                             adapter.setStats(it.value.stats as ArrayList<Stats>)
                         }
                     }
-                    is Resource.Failure -> {
+                    is NetworkResource.Failure -> {
                         binding.progressCircular.isVisible = false
                         requireContext().toast("There was an error loading the pokemon")
                     }
-                    is Resource.Loading -> {
+                    is NetworkResource.Loading -> {
                         binding.progressCircular.isVisible = true
                     }
                 }

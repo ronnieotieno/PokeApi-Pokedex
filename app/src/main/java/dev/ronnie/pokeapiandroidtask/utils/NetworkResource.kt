@@ -2,13 +2,13 @@ package dev.ronnie.pokeapiandroidtask.utils
 
 import okhttp3.ResponseBody
 
-sealed class Resource<out T> {
-    data class Success<out T>(val value: T) : Resource<T>()
+sealed class NetworkResource<out T> {
+    data class Success<out T>(val value: T) : NetworkResource<T>()
     data class Failure(
         val isNetworkError: Boolean,
         val errorCode: Int?,
         val errorBody: ResponseBody?
-    ) : Resource<Nothing>()
+    ) : NetworkResource<Nothing>()
 
-    object Loading : Resource<Nothing>()
+    object Loading : NetworkResource<Nothing>()
 }
