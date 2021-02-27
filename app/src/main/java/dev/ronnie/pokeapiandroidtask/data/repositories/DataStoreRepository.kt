@@ -16,7 +16,7 @@ import javax.inject.Inject
  *created by Ronnie Otieno on 13-Feb-21.
  **/
 class DataStoreRepository @Inject constructor(context: Context) {
-    private val Context.createDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+    val Context.createDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private val isDialogShown = booleanPreferencesKey("dialog_shown")
     private val dataStore = context.createDataStore
 

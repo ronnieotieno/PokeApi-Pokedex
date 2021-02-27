@@ -43,21 +43,23 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
 
         binding = FragmentPokemonStatsBinding.bind(view)
         val argument = arguments?.let { args.fromBundle(it) }
-        val pokemonResult = argument?.pokemonResult!!
-        val dominantColor = argument.dominantColor
-        val picture = argument.picture
+        val pokemonResult = argument?.pokemonResult
+        val dominantColor = argument?.dominantColor
+        val picture = argument?.picture
 
         //setting the colors based on dominant colors
         if (dominantColor != 0) {
-            binding.card.setBackgroundColor(dominantColor)
-            binding.toolbar.setBackgroundColor(dominantColor)
-            requireActivity().window.statusBarColor = dominantColor
+            dominantColor?.let { theColor ->
+                binding.card.setBackgroundColor(theColor)
+                binding.toolbar.setBackgroundColor(theColor)
+                requireActivity().window.statusBarColor = theColor
+            }
         }
 
         val toolbar = binding.toolbar as Toolbar
         toolbar.elevation = 0.0F
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar!!.title = pokemonResult.name.capitalize()
+        (activity as AppCompatActivity).supportActionBar!!.title = pokemonResult?.name?.capitalize()
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar!!.setHomeButtonEnabled(true)
 
@@ -73,7 +75,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
                 .into(pokemonItemImage)
         }
 
-        loadSinglePokemon(pokemonResult)
+        pokemonResult?.let { loadSinglePokemon(it) }
 
     }
 
