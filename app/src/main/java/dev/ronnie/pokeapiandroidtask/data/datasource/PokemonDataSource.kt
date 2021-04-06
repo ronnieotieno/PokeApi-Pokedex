@@ -19,7 +19,6 @@ import java.io.IOException
  */
 class PokemonDataSource(private val pokemonApi: PokemonApi, private val searchString: String?) :
     PagingSource<Int, PokemonResult>() {
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonResult> {
         val offset = params.key ?: STARTING_OFFSET_INDEX
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?android:selectableItemBackground">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
@@ -24,11 +23,11 @@
                 android:id="@+id/pokemon_item_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/pokemon_image_height"
+                android:contentDescription="@null"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@null" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ProgressBar

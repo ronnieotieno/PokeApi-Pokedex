@@ -19,23 +19,16 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadingStateAdapter.LoadStateViewHolder>() {
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
-
         val progress = holder.binding.progressBarItem
         val txtErrorMessage = holder.binding.errorMsgItem
-        val errorBtn = holder.binding.retyBtn
+        val errorBtn = holder.binding.retryBtn
 
-        if (loadState is LoadState.Loading) {
-            progress.isVisible = true
-            txtErrorMessage.isVisible = false
-            errorBtn.isVisible = false
-        } else {
-            progress.isVisible = false
-        }
+        progress.isVisible = loadState is LoadState.Loading
+        txtErrorMessage.isVisible = loadState is LoadState.Error
+        errorBtn.isVisible = loadState is LoadState.Error
+
         if (loadState is LoadState.Error) {
-            txtErrorMessage.isVisible = true
             txtErrorMessage.text = loadState.error.localizedMessage
-            errorBtn.isVisible = true
-            progress.isVisible = false
         }
         errorBtn.setOnClickListener {
             retry.invoke()

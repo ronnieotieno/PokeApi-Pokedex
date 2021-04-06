@@ -24,7 +24,6 @@ open class BaseRepository {
                             throwable.code(),
                             throwable.response()?.errorBody()
                         )
-
                     }
                     else -> {
                         NetworkResource.Failure(true, null, null)

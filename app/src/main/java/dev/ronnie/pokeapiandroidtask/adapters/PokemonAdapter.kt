@@ -59,7 +59,6 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
         var picture: String? = ""
 
         fun bind(pokemonResult: PokemonResult) {
-
             binding.apply {
                 pokemonItemTitle.text = pokemonResult.name.capitalize()
                 loadImage(this, pokemonResult)
@@ -102,6 +101,7 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
+
                             val drawable = resource as BitmapDrawable
                             val bitmap = drawable.bitmap
                             Palette.Builder(bitmap).generate {
@@ -138,7 +138,6 @@ class PokemonAdapter(private val navigate: (PokemonResult, Int, String?) -> Unit
             return oldItem == newItem
         }
     }
-
     //checking if the pokemon are being displayed or the loading more progressbar inorder to set spans accordingly.
 
     override fun getItemViewType(position: Int): Int {

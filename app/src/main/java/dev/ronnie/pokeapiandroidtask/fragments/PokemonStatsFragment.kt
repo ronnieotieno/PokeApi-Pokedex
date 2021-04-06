@@ -18,7 +18,6 @@ import dev.ronnie.pokeapiandroidtask.databinding.FragmentPokemonStatsBinding
 import dev.ronnie.pokeapiandroidtask.model.PokemonResult
 import dev.ronnie.pokeapiandroidtask.model.Stats
 import dev.ronnie.pokeapiandroidtask.utils.NetworkResource
-import dev.ronnie.pokeapiandroidtask.utils.extractId
 import dev.ronnie.pokeapiandroidtask.utils.toast
 import dev.ronnie.pokeapiandroidtask.viewmodels.PokemonStatsViewModel
 import kotlinx.coroutines.Dispatchers
@@ -85,7 +84,7 @@ class PokemonStatsFragment : Fragment(R.layout.fragment_pokemon_stats) {
         lifecycleScope.launch(Dispatchers.Main) {
             //a bit delay for the animation to finish
             delay(300)
-            viewModel.getSinglePokemon(pokemonResult.url.extractId()).collect {
+            viewModel.getSinglePokemon(pokemonResult.url).collect {
                 when (it) {
                     is NetworkResource.Success -> {
                         binding.progressCircular.isVisible = false

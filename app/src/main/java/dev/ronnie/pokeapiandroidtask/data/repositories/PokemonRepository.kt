@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import dev.ronnie.pokeapiandroidtask.api.PokemonApi
 import dev.ronnie.pokeapiandroidtask.data.datasource.PokemonDataSource
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +20,6 @@ import javax.inject.Singleton
 class PokemonRepository @Inject constructor(private val pokemonApi: PokemonApi) : BaseRepository() {
 
     //Returning the fetched data as flow
-
 
     fun getPokemon(searchString: String?) = Pager(
         config = PagingConfig(enablePlaceholders = false, pageSize = 25),
